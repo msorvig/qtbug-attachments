@@ -1,0 +1,5 @@
+
+QTBUG attachments downloader. Downloads from bugreports.qt.io.
+
+Usage:   ./jiradownloader start count
+Example  ./jiradownloader 49392 400
