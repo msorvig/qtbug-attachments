@@ -43,9 +43,15 @@ def download_qtbug(i):
         filename = attachment.split("/")[-1]
         urlretrieve(attachment, QTBUG + "/" + filename)
 
-# get bug ID range: begin, length
-begin = int(sys.argv[1])
-end = begin + int(sys.argv[2])
+# get bug ID range: begin, end
+if len(sys.argv) == 2:
+    # expect "QTBUG-XXXXX"
+    begin = int(sys.argv[1][6:])
+    end = begin + 1
+else:
+    # expect "begin length"
+    begin = int(sys.argv[1])
+    end = begin + int(sys.argv[2])
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
     { executor.submit(download_qtbug, i) : i for i in range(begin, end) }
